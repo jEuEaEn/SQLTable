@@ -1,0 +1,4 @@
+$ npm init -y
+$ npm install mysql2 dotenv
+$ npm install express cors
+$ touch index.js .env  Db.js
