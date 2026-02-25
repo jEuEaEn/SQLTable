@@ -24,7 +24,7 @@ app.get("/Games",async (req,res)=>{
 
     }catch(err){
 
-        res.status(500).send({message:'Hay un error en los cromosomas'}, err)
+        res.status(500).send({message:'Hay un error en los cromosomas', error:err})
 
     }
 
@@ -32,12 +32,12 @@ app.get("/Games",async (req,res)=>{
 
 app.post("/Games",async (req,res)=>{
 
-    const {title, year} = req.body
+    const {title, year, genre} = req.body
 
     try{
 
-        const [result] = await pool.query("INSERT INTO Juegos (title, year) VALUES (?, ?)",
-            [title, year]
+        const [result] = await pool.query("INSERT INTO Juegos (title, year, genre) VALUES (?, ?, ?)",
+            [title, year, genre]
         )
         res.status(201).json({ id: result.insertId})
 
@@ -49,6 +49,26 @@ app.post("/Games",async (req,res)=>{
 
 })
 
+app.delete("/Games/:id", async (req,res) =>{
+
+    const id = req.params.id
+    try{
+        const [result] = await pool.query('DELETE FROM Juegos WHERE id=?', [id])
+
+        if(result.affectedRows == 0 ){
+
+            return res.status(404).json({message : 'Juego no encontrado'})
+
+        }
+
+        res.status(200).send({message: 'Pelicula encontrada correctamente'})
+    }catch(error){
+
+        res.status(500).json({message:'Error en el servidor al eliminar', err: error})
+
+    }
+
+})
 
 app.listen(3000, () =>{
 
