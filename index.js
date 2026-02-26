@@ -3,16 +3,27 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { pool } from './Db.js'
 
+await pool.query(`
+    CRAETE TABE IF NOT EXISTS Games(
+
+    id int AUTO_INCREMENT PRYMARY KEY,
+    title varchar(50) NOT NULL,
+    year int NOT NULL,
+    genre varchar(150) NOT NULL
+    
+    )
+    `)
+
 const app = express()
 app.use(express.json())
 app.use(cors())
+
 
 app.get('/',(req,res) =>{
 
     res.json({message: 'Servidor corriendo'})
 
 })
-
 
 
 app.get("/Games",async (req,res)=>{
