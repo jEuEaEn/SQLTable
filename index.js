@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import { pool } from './Db.js'
-
+/*
 await pool.query(`
     CRAETE TABE IF NOT EXISTS Games(
 
@@ -13,6 +13,7 @@ await pool.query(`
     
     )
     `)
+*/
 
 const app = express()
 app.use(express.json())
